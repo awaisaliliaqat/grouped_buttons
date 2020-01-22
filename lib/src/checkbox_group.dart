@@ -37,7 +37,7 @@ class CheckboxGroup extends StatefulWidget {
   final GroupedButtonsOrientation orientation;
 
   /// Called when needed to build a CheckboxGroup element.
-  final Widget Function(Checkbox checkBox, Text label, int index) itemBuilder;
+  final Widget Function(CheckboxListTile checkBox, Text label, int index) itemBuilder;
 
   //THESE FIELDS ARE FOR THE CHECKBOX
 
@@ -109,13 +109,14 @@ class _CheckboxGroupState extends State<CheckboxGroup> {
 
     for(int i = 0; i < widget.labels.length; i++){
 
-      Checkbox cb = Checkbox(
+      CheckboxListTile cb = CheckboxListTile(
+                      title:  Text(widget.labels.elementAt(i)),
                       value: _selected.contains(widget.labels.elementAt(i)),
                       onChanged: (widget.disabled != null && widget.disabled.contains(widget.labels.elementAt(i))) ? null :
                                     (bool isChecked) => onChanged(isChecked, i),
-                      checkColor: widget.checkColor,
+                      //checkColor: widget.checkColor,
                       activeColor: widget.activeColor ?? Theme.of(context).toggleableActiveColor,
-                      tristate: widget.tristate,
+                      //tristate: widget.tristate,
                     );
 
       Text t = Text(
@@ -136,18 +137,19 @@ class _CheckboxGroupState extends State<CheckboxGroup> {
         if(widget.orientation == GroupedButtonsOrientation.VERTICAL){
 
           content.add(Row(children: <Widget>[
-            SizedBox(width: 12.0),
-            cb,
-            SizedBox(width: 12.0),
-            t,
+           // SizedBox(width: 12.0),
+            Expanded(child:cb),
+
+            //SizedBox(width: 12.0),
+            //t,
           ]));
 
         }else{ //horizontal orientation means Row with Column inside
 
           content.add(Column(children: <Widget>[
             cb,
-            SizedBox(width: 12.0),
-            t,
+            //SizedBox(width: 12.0),
+            //t,
           ]));
 
         }
